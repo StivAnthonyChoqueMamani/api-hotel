@@ -1,0 +1,36 @@
+models:
+  Customer:
+    name: string:30
+    last_name: string:30
+    phone: string:20
+    address: string:250
+    observations: string:250 nullable
+  Room:
+    number: string:10
+    type: string:50
+    price_per_night: decimal:10,2
+    description: text
+    status: enum:available,occupied,maintenance default:available
+    observations: string:250 nullable
+  Booking:
+    check_in: date
+    check_out: date nullable
+    total_price: decimal:10,2
+    status: enum:pending,confirmed,checked_in,checked_out,cancelled default:pending
+    observations: string:250 nullable
+    relationships:
+      belongsTo: Room, Customer
+  Payment:
+    method: enum:efectivo,yape,"targeta de credito" default:efectivo
+    amount: decimal:10,2
+    relationships:
+      belongsTo: Booking
+  Service:
+    name: string:100
+    description: text
+    price: decimal:10,2
+  Booking_Services:
+    quantity: integer
+    total: decimal:10,2
+    relationships:
+      belongsTo: Booking, Service
